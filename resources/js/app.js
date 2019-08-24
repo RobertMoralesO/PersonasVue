@@ -16,6 +16,7 @@ Vue.use(VueMaterial)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('index-persona', require('./components/IndexPersona.vue').default);
+Vue.component('card-persona', require('./components/CardPersona.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
