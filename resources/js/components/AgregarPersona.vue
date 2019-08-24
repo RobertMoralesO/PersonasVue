@@ -1,7 +1,7 @@
 <template>
   <div>
     <md-dialog :md-active.sync="showDialog" class="md-layout md-scrollbar">
-    <form novalidate class="md-layout" @submit.prevent="validateUser">
+    <form novalidate class="md-layout" @submit.prevent="validarUsuario()">
       <md-card>
         <md-card-header>
           <div class="md-title">Agregar Personas</div>
@@ -11,7 +11,7 @@
 
        <md-field>
       <label>Cédula</label>
-      <md-input v-model="number" type="number"></md-input>
+      <md-input v-model="cedula" type="number"></md-input>
         </md-field>
         <md-field>
         <label>Nombre</label>
@@ -24,7 +24,7 @@
 
 <md-field>
           <label for="Sexo">Sexo</label>
-          <md-select v-model="movie" name="movie" id="movie">
+          <md-select v-model="sexo" name="movie" id="movie">
             <md-option v-for="sexo in sexos" :value="sexo.id" :key="sexo.id">{{sexo.valor}}</md-option>
           </md-select>
         </md-field>
@@ -69,11 +69,28 @@
           id:2,
           valor:"Femenino"
       }
-      ]
+      ],cedula:"",
+      nombre:"",
+      apellido:"",
+      sexo:null
+
     }),mounted(){
         EventBus.$on('activar-ventana-agregar',data =>{
            this.showDialog=true;
         })
+    }, methods:{
+    validarUsuario(){
+        axios.post("/guardarPersona",{
+            cedula: this.cedula,
+            nombre: this.nombre,
+            apellido: this.apellido,
+            sexo: this.sexo
+        }).then(res=>{
+            //Cuando responde
+        }).catch(function(error){
+            alert(error);
+        })
     }
+  }
   }
 </script>

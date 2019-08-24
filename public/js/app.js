@@ -1766,7 +1766,11 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         id: 2,
         valor: "Femenino"
-      }]
+      }],
+      cedula: "",
+      nombre: "",
+      apellido: "",
+      sexo: null
     };
   },
   mounted: function mounted() {
@@ -1775,6 +1779,19 @@ __webpack_require__.r(__webpack_exports__);
     EventBus.$on('activar-ventana-agregar', function (data) {
       _this.showDialog = true;
     });
+  },
+  methods: {
+    validarUsuario: function validarUsuario() {
+      axios.post("/guardarPersona", {
+        cedula: this.cedula,
+        nombre: this.nombre,
+        apellido: this.apellido,
+        sexo: this.sexo
+      }).then(function (res) {//Cuando responde
+      })["catch"](function (error) {
+        alert(error);
+      });
+    }
   }
 });
 
@@ -1819,11 +1836,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Media',
   data: function data() {
     return {
-      personas: []
+      personas: [],
+      eliminar: false
     };
   },
   mounted: function mounted() {
@@ -1836,6 +1862,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     activar_ventana_ver: function activar_ventana_ver(data) {
       EventBus.$emit('activar-ventana-ver', data);
+    },
+    eliminar_si: function eliminar_si() {
+      alert("Se va a eliminar");
     }
   }
 });
@@ -2009,42 +2038,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.personas = [{
-      id: 1,
-      cedula: "1143425146",
-      nombre: "Roberto",
-      apellido: "Morales",
-      sexo: 1,
-      nombre_sexo: "Masculino"
-    }, {
-      id: 2,
-      cedula: "1145789132",
-      nombre: "Carlos",
-      apellido: "Perez",
-      sexo: 1,
-      nombre_sexo: "Masculino"
-    }, {
-      id: 3,
-      cedula: "1120578962",
-      nombre: "Manuel",
-      apellido: "Mejía",
-      sexo: 1,
-      nombre_sexo: "Masculino"
-    }, {
-      id: 4,
-      cedula: "117894556",
-      nombre: "Sergio",
-      apellido: "Perez",
-      sexo: 1,
-      nombre_sexo: "Masculino"
-    }, {
-      id: 5,
-      cedula: "1178945123",
-      nombre: "Andrea",
-      apellido: "Parra",
-      sexo: 2,
-      nombre_sexo: "Femenino"
-    }];
+    var _this = this;
+
+    axios.post("/obtenerPersonas", {}).then(function (res) {
+      _this.personas = res; //Cuando responde
+    })["catch"](function (error) {
+      alert(error);
+    });
   },
   methods: {
     activar_ventana_agregar: function activar_ventana_agregar() {
@@ -38325,7 +38325,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.validateUser($event)
+                  return _vm.validarUsuario()
                 }
               }
             },
@@ -38350,11 +38350,11 @@ var render = function() {
                           _c("md-input", {
                             attrs: { type: "number" },
                             model: {
-                              value: _vm.number,
+                              value: _vm.cedula,
                               callback: function($$v) {
-                                _vm.number = $$v
+                                _vm.cedula = $$v
                               },
-                              expression: "number"
+                              expression: "cedula"
                             }
                           })
                         ],
@@ -38409,11 +38409,11 @@ var render = function() {
                             {
                               attrs: { name: "movie", id: "movie" },
                               model: {
-                                value: _vm.movie,
+                                value: _vm.sexo,
                                 callback: function($$v) {
-                                  _vm.movie = $$v
+                                  _vm.sexo = $$v
                                 },
-                                expression: "movie"
+                                expression: "sexo"
                               }
                             },
                             _vm._l(_vm.sexos, function(sexo) {
@@ -38551,13 +38551,42 @@ var render = function() {
                 _vm._v(" "),
                 _c("md-button", [_vm._v("Editar")]),
                 _vm._v(" "),
-                _c("md-button", [_vm._v("Eliminar")])
+                _c(
+                  "md-button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.eliminar = true
+                      }
+                    }
+                  },
+                  [_vm._v("Eliminar")]
+                )
               ],
               1
             )
           ],
           1
         )
+      }),
+      _vm._v(" "),
+      _c("md-dialog-confirm", {
+        attrs: {
+          "md-active": _vm.eliminar,
+          "md-title": "Eliminar",
+          "md-content": "¿Está seguro que desea eliminar la persona?",
+          "md-confirm-text": "Si",
+          "md-cancel-text": "No"
+        },
+        on: {
+          "update:mdActive": function($event) {
+            _vm.eliminar = $event
+          },
+          "update:md-active": function($event) {
+            _vm.eliminar = $event
+          },
+          "md-confirm": _vm.eliminar_si
+        }
       }),
       _vm._v(" "),
       _c("ver-persona")

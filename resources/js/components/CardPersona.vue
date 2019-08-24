@@ -12,9 +12,17 @@
       <md-card-actions>
         <md-button @click="activar_ventana_ver(persona)">Ver</md-button>
         <md-button >Editar</md-button>
-        <md-button>Eliminar</md-button>
+        <md-button @click="eliminar=true">Eliminar</md-button>
       </md-card-actions>
     </md-card>
+ <md-dialog-confirm
+      :md-active.sync="eliminar"
+      md-title="Eliminar"
+      md-content="¿Está seguro que desea eliminar la persona?"
+      md-confirm-text="Si"
+      md-cancel-text="No"
+      @md-confirm="eliminar_si" />
+
     <ver-persona></ver-persona>
     </div>
 </template>
@@ -34,7 +42,8 @@ export default {
   name: 'Media',
   data(){
     return{
-        personas:[]
+        personas:[],
+        eliminar:false
     }
   },mounted(){
     EventBus.$on('buscar-personas',data=>{
@@ -43,6 +52,8 @@ export default {
   }, methods:{
     activar_ventana_ver(data){
       EventBus.$emit('activar-ventana-ver',data)
+    },eliminar_si(){
+      alert("Se va a eliminar");
     }
   }
 }

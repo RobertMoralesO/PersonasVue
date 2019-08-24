@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('index');
 });
+
+Route::post('obtenerPersonas','PersonaController@obtenerPersonas');
+Route::post('guardarPersona','PersonaController@guardarPersona');
+Route::post('actualizarPersona','PersonaController@actualizarPersona');
+Route::post('eliminarPersona','PersonaController@eliminarPersona');

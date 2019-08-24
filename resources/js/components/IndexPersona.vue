@@ -94,45 +94,16 @@ export default {
 
   }),
   created(){
-
-    this.personas=[
-      {
-        id:1,
-        cedula:"1143425146",
-        nombre: "Roberto",
-        apellido: "Morales",
-        sexo: 1,
-        nombre_sexo:"Masculino"
-      }, {
-        id:2,
-        cedula:"1145789132",
-        nombre: "Carlos",
-        apellido: "Perez",
-        sexo: 1,
-        nombre_sexo:"Masculino"
-      }, {
-        id:3,
-        cedula:"1120578962",
-        nombre: "Manuel",
-        apellido: "Mejía",
-        sexo: 1,
-        nombre_sexo:"Masculino"
-      }, {
-        id:4,
-        cedula:"117894556",
-        nombre: "Sergio",
-        apellido: "Perez",
-        sexo: 1,
-        nombre_sexo:"Masculino"
-      }, {
-        id:5,
-        cedula:"1178945123",
-        nombre: "Andrea",
-        apellido: "Parra",
-        sexo: 2,
-        nombre_sexo:"Femenino"
-      }
-    ]
+    
+axios.post("/obtenerPersonas",{
+           
+        }).then(res=>{
+            this.personas = res;
+            //Cuando responde
+        }).catch(function(error){
+            alert(error);
+        })
+    
 
   },
   methods:{
