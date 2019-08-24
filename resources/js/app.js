@@ -19,6 +19,10 @@ Vue.use(VueFuse)
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('index-persona', require('./components/IndexPersona.vue').default);
 Vue.component('card-persona', require('./components/CardPersona.vue').default);
+Vue.component('agregar-persona', require('./components/AgregarPersona.vue').default);
+Vue.component('empty-persona', require('./components/EmptyPersona.vue').default);
+
+window.EventBus = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

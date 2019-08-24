@@ -10,10 +10,11 @@
               <span class="md-title">{{nombre_app}}</span>
           </div>
          <vue-fuse 
-         :keys="keys" 
-         :list="bikes" 
-         :defaultAll="false" 
-         :eventName="bikesChanged"
+         :keys="personas_keys" 
+         :list="personas" 
+         :defaultAll="true"
+         :threshold="0.3"
+         @fuseResultsUpdated="results($event)"
          class="fuse">
          </vue-fuse>
         <div class="md-toolbar-section-end">
@@ -51,8 +52,11 @@
       </md-app-drawer>
       <md-app-content>
         <card-persona></card-persona> 
-      
-        <md-button class="md-fab md-primary md-fab-bottom-right">
+        <empty-persona></empty-persona>
+        
+        <agregar-persona></agregar-persona> 
+    
+        <md-button class="md-fab md-primary md-fab-bottom-right" @click="activar_ventana_agregar()">
           <md-icon>add</md-icon>
         </md-button> 
       </md-app-content>
@@ -84,7 +88,60 @@ export default {
   name: 'Reveal',
   data: () => ({
     menuVisible: false,
-    nombre_app: 'Personas-Vue'
-  })
+    nombre_app: 'Personas-Vue',
+    personas:[],
+    personas_keys:['cedula','nombre','apellido']
+
+  }),
+  created(){
+
+    this.personas=[
+      {
+        id:1,
+        cedula:"1143425146",
+        nombre: "Roberto",
+        apellido: "Morales",
+        sexo: 1,
+        nombre_sexo:"Masculino"
+      }, {
+        id:2,
+        cedula:"1145789132",
+        nombre: "Carlos",
+        apellido: "Perez",
+        sexo: 1,
+        nombre_sexo:"Masculino"
+      }, {
+        id:3,
+        cedula:"1120578962",
+        nombre: "Manuel",
+        apellido: "Mejía",
+        sexo: 1,
+        nombre_sexo:"Masculino"
+      }, {
+        id:4,
+        cedula:"117894556",
+        nombre: "Sergio",
+        apellido: "Perez",
+        sexo: 1,
+        nombre_sexo:"Masculino"
+      }, {
+        id:5,
+        cedula:"1178945123",
+        nombre: "Andrea",
+        apellido: "Parra",
+        sexo: 2,
+        nombre_sexo:"Femenino"
+      }
+    ]
+
+  },
+  methods:{
+    activar_ventana_agregar(){
+      EventBus.$emit("activar-ventana-agregar",true);
+    },
+    results(data){
+      EventBus.$emit("buscar-personas",data);
+    }
+  }
 }
 </script>
