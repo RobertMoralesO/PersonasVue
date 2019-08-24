@@ -52,7 +52,7 @@
       </md-app-drawer>
       <md-app-content>
         <card-persona></card-persona> 
-        <empty-persona></empty-persona>
+        <empty-persona v-if="personas.length==0"></empty-persona>
         
         <agregar-persona></agregar-persona> 
     

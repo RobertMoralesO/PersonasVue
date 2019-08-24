@@ -21,6 +21,7 @@ Vue.component('index-persona', require('./components/IndexPersona.vue').default)
 Vue.component('card-persona', require('./components/CardPersona.vue').default);
 Vue.component('agregar-persona', require('./components/AgregarPersona.vue').default);
 Vue.component('empty-persona', require('./components/EmptyPersona.vue').default);
+Vue.component('ver-persona', require('./components/VerPersona.vue').default);
 
 window.EventBus = new Vue();
 
