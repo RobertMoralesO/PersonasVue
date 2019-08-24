@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-fuse": "^2.1.0",
         "vue-material": "^1.0.0-beta-11"
     }
 }

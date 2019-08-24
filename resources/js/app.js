@@ -11,8 +11,10 @@ window.Vue = require('vue');
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+import VueFuse from 'vue-fuse'
 
 Vue.use(VueMaterial)
+Vue.use(VueFuse)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('index-persona', require('./components/IndexPersona.vue').default);
